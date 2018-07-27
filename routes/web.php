@@ -18,3 +18,4 @@ Route::get('/', function () {
 Route::get('user', function () {
     return view('layouts.app');
 });
+//esta es una prueba para el GITHUB
