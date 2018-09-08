@@ -31,6 +31,8 @@ class CreateUsersTable extends Migration
             $table->string('cel')->nullable();
             //Otros
             $table->integer('sexo')->default('1');
+            //rol
+            $table->string('rol')->nullable();
             
             $table->rememberToken();
             $table->timestamps();
