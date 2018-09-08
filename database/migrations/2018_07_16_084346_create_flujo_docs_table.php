@@ -16,7 +16,7 @@ class CreateFlujoDocsTable extends Migration
         Schema::create('flujo_docs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tipo_doc_id')->unsigned();
-            $table->integer('n_reg');
+            $table->integer('kardex');
             $table->string('desc_doc');
             $table->date('fecha');
             $table->string('asunto');
