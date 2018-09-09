@@ -15,7 +15,7 @@ class DatosForTipoDocTableSeeder extends Seeder
         // Programa
         DB::table('tipo_docs')->insert([
         	//entrante
-        		['nombre' => 'FUT','descripcion' => '','estado' => '1',]
+        		['nombre' => 'FUT','descripcion' => '','estado' => '1',],
         	//salientes
                 ['nombre' => 'Oficio','descripcion' => '','estado' => '1',],
                 ['nombre' => 'Oficio Multiple','descripcion' => '','estado' => '1',],

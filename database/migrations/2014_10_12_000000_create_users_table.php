@@ -32,7 +32,12 @@ class CreateUsersTable extends Migration
             //Otros
             $table->integer('sexo')->default('1');
             //rol
-            $table->string('rol')->nullable();
+            $table->string('rol')->nullable(); 
+            $table->string('estado_log')->default('1'); 
+            //0:admin_general: crea areas para su institución, crea usuarios de rol 1 y ve todo, 
+            //1:admins_oficina: crea usuarios de rol 2 y 3. y sub areas para su area:
+            //2:jefe de area (director, rector, encargado, etc)
+            //3:Secretaria(o)  
             
             $table->rememberToken();
             $table->timestamps();
