@@ -11,6 +11,13 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        /*
+        Roles: 
+            0: Administrador General
+            1: Administrador de area
+            2: Jefe de Area
+            3: Secretaria(o) de Area
+        */
          DB::table('users')->insert([
             //entrante
                 ['nombres' => 'Admin',
@@ -19,7 +26,7 @@ class UserTableSeeder extends Seeder
                  'f_nac' => '1990-10-10',
                  'email' => 'xxxxxx@xxxx.xxx',
                  'dni' => '00000000',
-                 'password' => '00000000',
+                 'password' => bcrypt('00000000'),
                  'domicilio' => '',
                  'n_domicilio' => '',
                  'tel' => '',
@@ -32,7 +39,7 @@ class UserTableSeeder extends Seeder
                  'f_nac' => '1990-10-10',
                  'email' => '00000001@xxxx.xxx',
                  'dni' => '00000001',
-                 'password' => '00000001',
+                 'password' => bcrypt('00000001'),
                  'domicilio' => '',
                  'n_domicilio' => '',
                  'tel' => '',
@@ -44,8 +51,8 @@ class UserTableSeeder extends Seeder
                  'apellido_materno' => 'Cordova',
                  'f_nac' => '1970-10-10',
                  'email' => '0000002@xxxx.xxx',
-                 'dni' => '0000002',
-                 'password' => '00000002',
+                 'dni' => '00000002',
+                 'password' => bcrypt('00000002'),
                  'domicilio' => '',
                  'n_domicilio' => '',
                  'tel' => '',
@@ -57,8 +64,8 @@ class UserTableSeeder extends Seeder
                  'apellido_materno' => 'Cordova',
                  'f_nac' => '1970-10-10',
                  'email' => '0000003@xxxx.xxx',
-                 'dni' => '0000003',
-                 'password' => '00000003',
+                 'dni' => '00000003',
+                 'password' => bcrypt('00000003'),
                  'domicilio' => '',
                  'n_domicilio' => '',
                  'tel' => '',

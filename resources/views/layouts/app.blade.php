@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php 
+   if(Auth::user()->foto==null || Auth::user()->foto!='user.png'){
+      $RutaDeMiFotoPerfil=Storage::url(Auth::user()->foto);
+    } else{
+      $RutaDeMiFotoPerfil=URL::to('plantilla/images/avatars/user.png');
+     } 
+?>
 <html lang="es">
 
 <head>
@@ -9,20 +16,25 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Stramites::@yield('titulo')</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="plantilla/vendor2/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    {!!Html::style('plantilla/vendor2/bootstrap/css/bootstrap.min.css')!!}
 
     <!-- MetisMenu CSS -->
-    <link href="plantilla/vendor2/metisMenu/metisMenu.min.css" rel="stylesheet">
+    {!!Html::style('plantilla/vendor2/metisMenu/metisMenu.min.css')!!}
 
     <!-- Custom CSS -->
-    <link href="plantilla/dist/css/sb-admin-2.css" rel="stylesheet">
+    {!!Html::style('plantilla/dist/css/sb-admin-2.css')!!}
 
     <!-- Custom Fonts -->
-    <link href="plantilla/vendor2/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    {!!Html::style('plantilla/vendor2/font-awesome/css/font-awesome.min.css')!!}
 
+    <style type="text/css">
+       .nav-user-photo{margin:-10px 4px -10px 0;border-radius:100%;border:2px solid #FFF;width: 40px;height: 40px;}
+       .user-info{margin-left:auto;text-align:center;margin-right:1px;right:auto;left:-3px}
+    </style>
+    @yield('estilos')
   
 
 </head>
@@ -40,7 +52,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand" href="{{ route('dashboard')}}">Stramites v1.0</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -235,17 +247,34 @@
                     <!-- /.dropdown-alerts -->
                 </li>
                 <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <li class="dropdown" style="border-left: 3px solid #D3D3D3;">
+                    {{-- <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
+                    </a> --}}
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                           <img class="nav-user-photo" src="{{$RutaDeMiFotoPerfil}}"  alt="Foto" />
+                              <span class="user-info">
+                                    <!-- ubicamos la ruta de la FOTO -->
+                                 <small>{{ Auth::user()->nombres }}</small>
+                                    {{ Auth::user()->apellido_paterno.' '.Auth::user()->apellido_materno }}
+                              </span>
+                           <i class="fa fa-caret-down"></i>
+                        </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li>
+                           <form method="POST" action="{{ route('logout') }}" name="salir">
+                              {{ csrf_field() }}
+                           </form>
+                           <a href="javascript:document.salir.submit()">
+                              <i class="fa fa-sign-out fa-fw"></i>
+                              Salir
+                           </a>
+                           
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -259,7 +288,7 @@
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                <input type="text" class="form-control" placeholder="Buscar Exp...">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button">
                                         <i class="fa fa-search"></i>
@@ -269,92 +298,29 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="{{ route('dashboard')}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Documentos<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">Flot Charts</a>
+                                    <a href="{{ route('doc.recibidos')}}"> Recibidos</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Morris.js Charts</a>
+                                    <a href="morris.html"> Enviados</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html"> Buscar</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                            <a href="tables.html"><i class="fa fa-edit fa-fw"></i> Plantillas</a>
                         </li>
-                        <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="panels-wells.html">Panels and Wells</a>
-                                </li>
-                                <li>
-                                    <a href="buttons.html">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="notifications.html">Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="typography.html">Typography</a>
-                                </li>
-                                <li>
-                                    <a href="icons.html"> Icons</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grid</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                    </ul>
-                                    <!-- /.nav-third-level -->
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li class="active">
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a class="active" href="blank.html">Blank Page</a>
-                                </li>
-                                <li>
-                                    <a href="login.html">Login Page</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+                        
+                       
+                     
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -368,6 +334,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">Blank</h1>
+                        @yield('contenido')
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -381,17 +348,17 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="plantilla/vendor2/jquery/jquery.min.js"></script>
+    {!!Html::script('plantilla/vendor2/jquery/jquery.min.js')!!}
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="plantilla/vendor2/bootstrap/js/bootstrap.min.js"></script>
+    {!!Html::script('plantilla/vendor2/bootstrap/js/bootstrap.min.js')!!}
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="plantilla/vendor2/metisMenu/metisMenu.min.js"></script>
+    {!!Html::script('plantilla/vendor2/metisMenu/metisMenu.min.js')!!}
 
     <!-- Custom Theme JavaScript -->
-    <script src="plantilla/dist/js/sb-admin-2.js"></script>
-
+    {!!Html::script('plantilla/dist/js/sb-admin-2.js')!!}
+    @yield('script')
 </body>
 
 </html>

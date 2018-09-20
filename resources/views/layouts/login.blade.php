@@ -42,22 +42,24 @@
                         <h3 class="panel-title">Iniciar Sesión</h3>
                     </div>
                     <div class="panel-body">
-                        <img src="plantilla/img/app/Tramites.png">
-                        <form role="form">
+                        <img src="plantilla/images/app/Tramites.png">
+                         <form method="post" action="login" name="login">{{ csrf_field() }}
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="Usuario" name="dni" type="text" autofocus required="true" value="{{ old('dni') }}" >
+                                    {!! $errors->first('dni',
+                                        '<span class="help-block" style="color:rgba(233, 1, 1,.9); ">*:message</span>'
+                                    ) !!}
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Recordarme
-                                    </label>
+                                    <input class="form-control" placeholder="Contraseña" name="password" type="password" value="" required="true">
+                                    {!! $errors->first('password',
+                                        '<span class="help-block"  style=" color:rgba(233, 1, 1,.9);">*:message</span>') 
+                                    !!}
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="index.html" class="btn btn-lg btn-success btn-block">Ingresar</a>
+                                {{-- <a href="index.html" class="btn btn-lg btn-success btn-block">Ingresar</a> --}}
+                                <button class="btn btn-lg btn-success btn-block">Ingresar</button>
                             </fieldset>
                         </form>
                     </div>

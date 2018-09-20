@@ -15,7 +15,17 @@ Route::get('/', function () {
     return view('layouts.login');
 });
 
-Route::get('user', function () {
-    return view('layouts.app');
+// Authentication Routes...
+Route::post('login', 'Auth\LoginController@login');
+Route::get('dashboard', 'DashboardController@index')->name('dashboard');       
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+//Modulo Documento
+Route::group(['prefix' => 'documentos'],function(){
+	Route::group(['prefix' => 'recibidos'],function(){
+		Route::get('/', 'modulos\documentos\RecibidosController@index')->name('doc.recibidos');
+	});
+	//Route::post('update', 'Auth\AjustesUserController@update')->name('ajustes.update');
+	//Route::put('foto', 'Auth\AjustesUserController@img_update')->name('ajustes.foto');
 });
-//esta es una prueba para el GITHUB
+
