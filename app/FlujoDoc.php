@@ -25,3 +25,4 @@ class FlujoDoc extends Model
 
     ];
 }
+

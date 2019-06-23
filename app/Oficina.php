@@ -17,3 +17,4 @@ class Oficina extends Model
 
     ];
 }
+
